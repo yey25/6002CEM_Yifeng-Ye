@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Shopping.App.ViewModel"
+             xmlns:util="clr-namespace:Shopping.App.Util"
+             x:Class="Shopping.App.Views.UserPage"
+             x:DataType="vm:UserViewModel">
+    <VerticalStackLayout>
+        <HorizontalStackLayout
+            HorizontalOptions="EndAndExpand">
+            <ImageButton HorizontalOptions="EndAndExpand"
+                         BackgroundColor="Transparent"
+                         IsVisible="{Binding IsLogOut}"
+                         Source="{FontImage Glyph={Static util:IconicFont.AccountAdd},
+                                                           FontFamily={StaticResource IconicFont},
+                                                           Color={StaticResource Secondary},
+                                                           Size=16}"
+                         Command="{Binding LoginCommand}"/>
+            <ImageButton HorizontalOptions="EndAndExpand"
+                         BackgroundColor="Transparent"
+                         IsVisible="{Binding IsLogin}"
+                         Source="{FontImage Glyph={Static util:IconicFont.LogOut},
+                                                           FontFamily={StaticResource IconicFont},
+                                                           Color={StaticResource Secondary},
+                                                           Size=16}"
+                         Command="{Binding LogOutCommand}"/>
+        </HorizontalStackLayout>
+        
+        <HorizontalStackLayout Margin="30">
+            <Border Stroke="{StaticResource Secondary}">
+                <Border.StrokeShape>
+                    <Ellipse/>
+                </Border.StrokeShape>
+                <Image Source="{Binding HeadPortrait}"
+                       WidthRequest="100"
+                       HeightRequest="100"/>
+            </Border>
+
+            <Label HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Text="{Binding Account}"
+                   FontSize="Large"
+                   FontAttributes="Bold"
+                   Margin="40,0,0,0"
+                   IsVisible="{Binding IsLogin}"/>
+
+            <Button Text="Log In"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Margin="40,0,0,0"
+                    IsVisible="{Binding IsLogOut}"
+                    Command="{Binding LoginCommand}"/>
+        </HorizontalStackLayout>
+
+        <BoxView Style="{StaticResource SplitLine}"/>
+
+        <Grid Padding="10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0"
+                   Text="Theme"
+                   VerticalTextAlignment="Center"/>
+
+            <HorizontalStackLayout
+                    Grid.Column="2">
+                <Label Text="Dark"
+                       VerticalTextAlignment="Center"/>
+                <Switch Margin="10,0,10,0"
+                        IsToggled="{Binding IsLightTheme}"/>
+                <Label Text="Light"
+                       VerticalTextAlignment="Center"/>
+            </HorizontalStackLayout>
+        </Grid>
+
+        <BoxView Style="{StaticResource SplitLine}"/>
+
+        <Grid Padding="10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0"
+                   Text="Init Data (For Test)"
+                   VerticalTextAlignment="Center"
+                   HorizontalOptions="StartAndExpand"/>
+            
+            <Switch Grid.Column="2"
+                    IsToggled="{Binding IsInitData}"
+                    HorizontalOptions="End"/>
+        </Grid>
+        <BoxView Style="{StaticResource SplitLine}"/>
+    </VerticalStackLayout>
+</ContentPage>

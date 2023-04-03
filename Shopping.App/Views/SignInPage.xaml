@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Shopping.App.ViewModel"
+             xmlns:service="clr-namespace:Shopping.App.Service"
+             x:Class="Shopping.App.Views.SignInPage"
+             x:DataType="vm:SignInViewModel">
+    <VerticalStackLayout
+        Margin="30">
+        <Label Text="Sign In"
+               HorizontalOptions="Center" 
+               FontAttributes="Bold"
+               FontSize="Subtitle"/>
+
+        <Label Text="Account:"
+               FontSize="Micro"
+               Margin="0,30,0,0"/>
+        <Entry Text="{Binding Account}" />
+
+
+        <Label Text="Password:"
+               FontSize="Micro"
+               Margin="0,10,0,0"/>
+        <Entry Text="{Binding Password}"
+               IsPassword="True"/>
+
+        <Label Text="Confirm Password:"
+               FontSize="Micro"
+               Margin="0,10,0,0"/>
+        <Entry Text="{Binding Confirm}"
+               IsPassword="True"/>
+
+        <Button Text="Sign In"
+                Margin="0,30,0,0"
+                Command="{Binding SignInCommand}"/>
+        <Button Text="Back to Log In"
+                Margin="0,10,0,0"
+                Command="{Binding LoginCommand}"/>
+    </VerticalStackLayout>
+</ContentPage>

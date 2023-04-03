@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:util="clr-namespace:Shopping.App.Util"
+             xmlns:vm="clr-namespace:Shopping.App.ViewModel"
+             xmlns:control="clr-namespace:Shopping.App.Control"
+             xmlns:model="clr-namespace:Shopping.App.Models"
+             x:Class="Shopping.App.Views.ShoppingCartPage"
+             x:DataType="vm:ShoppingCartViewModel">
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ImageButton 
+            Grid.Row="0"
+            VerticalOptions="Start"
+            HorizontalOptions="EndAndExpand"
+            BackgroundColor="Transparent"
+            Source="{FontImage Glyph={x:Static util:IconicFont.Delete},
+                                FontFamily={StaticResource IconicFont},
+                                Color=Red,
+                                Size=20}"
+            Command="{Binding DeleteCommand}"/>
+
+        <ListView Grid.Row="1"
+                  ItemsSource="{Binding CartItems}"
+                  RowHeight="180">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="model:CartItem">
+                    <ViewCell>
+                        <Border Style="{StaticResource ListViewItemBorder}">
+                            <Grid Padding="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="180"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <CheckBox Grid.Column="0"
+                                          VerticalOptions="Center"
+                                          IsChecked="{Binding IsSelected}"/>
+
+                                <Image Grid.Column="1"
+                                       Source="{Binding Product.Image}" />
+
+                                <Grid Grid.Column="2">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <VerticalStackLayout
+                                        Grid.Row="0"
+                                        Margin="5">
+                                        <Label Text="{Binding Product.Name}" 
+                                           FontAttributes="Bold"
+                                           FontSize="Large"/>
+                                        <Label Style="{StaticResource CurrencyLabel}" 
+                                           BindingContext="{Binding Product.Price}" />
+                                    </VerticalStackLayout>
+
+
+                                    <control:QuantityContent
+                                        Grid.Row="1"
+                                        Quantity="{Binding Quantity, Mode=TwoWay}"
+                                        HorizontalOptions="EndAndExpand"
+                                        Scale="0.8"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+        <Grid Grid.Row="2"
+              BackgroundColor="{AppThemeBinding Dark={StaticResource Blue100Accent},
+                                                Light={StaticResource Yellow200Accent}}">
+            <Label Text="{Binding TotalPrice, StringFormat='Total:  £{0:0.00}'}"
+                   VerticalTextAlignment="Center"
+                   HorizontalTextAlignment="Center"
+                   HorizontalOptions="Start"
+                   FontSize="Medium"
+                   Margin="5"/>
+
+            <Button Text="Pay"
+                    Margin="5"
+                    WidthRequest="80"
+                    VerticalOptions="Fill"
+                    HorizontalOptions="EndAndExpand"
+                    Command="{Binding PayCommand}"/>
+        </Grid>
+    </Grid>
+</ContentPage>
